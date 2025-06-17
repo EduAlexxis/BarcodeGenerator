@@ -5,37 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Barcode Generator</title>
     <style>
-        :root {
-            --bg-primary: #ffffff;
-            --bg-secondary: #f9fafb;
-            --bg-tertiary: #f3f4f6;
-            --text-primary: #1f2937;
-            --text-secondary: #4b5563;
-            --text-muted: #6b7280;
-            --border-primary: #e5e7eb;
-            --border-secondary: #d1d5db;
-            --accent-color: #374151;
-            --accent-light: rgba(55, 65, 81, 0.1);
-            --shadow: rgba(0, 0, 0, 0.08);
-            --danger: #ef4444;
-            --success: #10b981;
-            --warning: #f59e0b;
-        }
-
-        [data-theme="dark"] {
-            --bg-primary: #111827;
-            --bg-secondary: #1f2937;
-            --bg-tertiary: #374151;
-            --text-primary: #f9fafb;
-            --text-secondary: #d1d5db;
-            --text-muted: #9ca3af;
-            --border-primary: #374151;
-            --border-secondary: #4b5563;
-            --accent-color: #60a5fa;
-            --accent-light: rgba(96, 165, 250, 0.1);
-            --shadow: rgba(0, 0, 0, 0.3);
-        }
-
         * {
             margin: 0;
             padding: 0;
@@ -44,168 +13,65 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: var(--bg-primary);
-            color: var(--text-primary);
+            background: #ffffff;
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 20px;
-            transition: all 0.3s ease;
         }
 
-        .app-container {
-            display: flex;
-            gap: 20px;
-            max-width: 1200px;
-            width: 100%;
-        }
-
-        .main-container {
-            flex: 1;
-            background: var(--bg-primary);
-            border: 2px solid var(--border-primary);
+        .container {
+            background: #ffffff;
+            border: 2px solid #e5e7eb;
             border-radius: 12px;
             padding: 40px;
-            box-shadow: 0 4px 20px var(--shadow);
-            max-width: 600px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            max-width: 500px;
+            width: 100%;
             text-align: center;
         }
 
-        .sidebar {
-            width: 300px;
-            background: var(--bg-secondary);
-            border: 2px solid var(--border-primary);
-            border-radius: 12px;
-            padding: 20px;
-            box-shadow: 0 4px 20px var(--shadow);
-        }
-
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-        }
-
         h1 {
-            color: var(--text-primary);
+            color: #1f2937;
+            margin-bottom: 30px;
             font-weight: 600;
             font-size: 2.2rem;
         }
 
-        .theme-toggle {
-            background: var(--bg-secondary);
-            border: 2px solid var(--border-primary);
-            border-radius: 8px;
-            padding: 8px 12px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            color: var(--text-primary);
-        }
-
-        .theme-toggle:hover {
-            background: var(--bg-tertiary);
-        }
-
-        .controls {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        .format-selector {
-            flex: 1;
-            padding: 12px 16px;
-            border: 2px solid var(--border-secondary);
-            border-radius: 8px;
-            font-size: 14px;
-            background: var(--bg-secondary);
-            color: var(--text-primary);
-            outline: none;
-        }
-
         .input-group {
-            margin-bottom: 20px;
+            margin-bottom: 30px;
             position: relative;
         }
 
         input[type="text"] {
             width: 100%;
             padding: 16px 20px;
-            border: 2px solid var(--border-secondary);
+            border: 2px solid #d1d5db;
             border-radius: 8px;
             font-size: 16px;
             transition: all 0.3s ease;
-            background: var(--bg-secondary);
-            color: var(--text-primary);
+            background: #f9fafb;
             outline: none;
         }
 
         input[type="text"]:focus {
-            border-color: var(--accent-color);
-            box-shadow: 0 0 0 3px var(--accent-light);
-            background: var(--bg-primary);
+            border-color: #374151;
+            box-shadow: 0 0 0 3px rgba(55, 65, 81, 0.1);
+            background: #ffffff;
         }
 
         input[type="text"]::placeholder {
-            color: var(--text-muted);
-        }
-
-        .action-buttons {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            flex: 1;
-            padding: 12px 16px;
-            border: 2px solid var(--border-primary);
-            border-radius: 8px;
-            background: var(--bg-secondary);
-            color: var(--text-primary);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 14px;
-            min-width: 120px;
-        }
-
-        .btn:hover {
-            background: var(--bg-tertiary);
-            border-color: var(--accent-color);
-        }
-
-        .btn.primary {
-            background: var(--accent-color);
-            color: white;
-            border-color: var(--accent-color);
-        }
-
-        .btn.primary:hover {
-            opacity: 0.9;
-        }
-
-        .btn.danger {
-            background: var(--danger);
-            color: white;
-            border-color: var(--danger);
-        }
-
-        .btn.success {
-            background: var(--success);
-            color: white;
-            border-color: var(--success);
+            color: #9ca3af;
         }
 
         .barcode-container {
-            background: var(--bg-primary);
-            border: 2px solid var(--border-primary);
+            background: #ffffff;
+            border: 2px solid #e5e7eb;
             border-radius: 8px;
             padding: 30px;
             margin: 30px 0;
-            min-height: 140px;
+            min-height: 120px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -225,127 +91,28 @@
         }
 
         .placeholder {
-            color: var(--text-muted);
+            color: #6b7280;
             font-style: italic;
             font-size: 14px;
         }
 
         .instructions {
-            background: var(--bg-tertiary);
-            border: 1px solid var(--border-primary);
+            background: #f3f4f6;
+            border: 1px solid #e5e7eb;
             border-radius: 8px;
             padding: 15px;
             margin-top: 20px;
-            color: var(--text-secondary);
+            color: #4b5563;
             font-size: 14px;
             line-height: 1.5;
         }
 
         .instructions strong {
-            color: var(--text-primary);
+            color: #1f2937;
         }
 
-        .sidebar h3 {
-            color: var(--text-primary);
-            margin-bottom: 15px;
-            font-size: 1.1rem;
-        }
-
-        .history-item, .favorite-item {
-            background: var(--bg-primary);
-            border: 1px solid var(--border-primary);
-            border-radius: 6px;
-            padding: 10px;
-            margin-bottom: 8px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 12px;
-        }
-
-        .item-text {
-            flex: 1;
-            text-align: left;
-            color: var(--text-primary);
-            cursor: pointer;
-            padding: 4px;
-            border-radius: 4px;
-            transition: background 0.2s ease;
-        }
-
-        .item-text:hover {
-            background: var(--bg-secondary);
-        }
-
-        .item-actions {
-            display: flex;
-            gap: 5px;
-        }
-
-        .item-btn {
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 4px;
-            border-radius: 4px;
-            color: var(--text-muted);
-            transition: all 0.2s ease;
-        }
-
-        .item-btn:hover {
-            background: var(--bg-secondary);
-            color: var(--text-primary);
-        }
-
-        .star {
-            color: var(--warning);
-        }
-
-        .star.filled {
-            color: var(--warning);
-        }
-
-        .empty-state {
-            color: var(--text-muted);
-            font-style: italic;
-            text-align: center;
-            padding: 20px;
-            font-size: 14px;
-        }
-
-        .keyboard-shortcuts {
-            background: var(--bg-tertiary);
-            border-radius: 6px;
-            padding: 10px;
-            margin-top: 15px;
-            font-size: 11px;
-            color: var(--text-secondary);
-        }
-
-        .shortcut {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 4px;
-        }
-
-        .key {
-            background: var(--bg-primary);
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-family: monospace;
-        }
-
-        @media (max-width: 768px) {
-            .app-container {
-                flex-direction: column;
-            }
-            
-            .sidebar {
-                width: 100%;
-                order: -1;
-            }
-            
-            .main-container {
+        @media (max-width: 480px) {
+            .container {
                 padding: 30px 20px;
             }
             
@@ -356,240 +123,65 @@
             input[type="text"] {
                 padding: 14px 16px;
             }
-
-            .action-buttons {
-                flex-direction: column;
-            }
-
-            .btn {
-                min-width: 100%;
-            }
         }
 
-        .notification {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            padding: 12px 16px;
-            border-radius: 6px;
-            color: white;
+        .loading {
+            color: #374151;
             font-size: 14px;
-            z-index: 1000;
-            opacity: 0;
-            transform: translateX(100%);
-            transition: all 0.3s ease;
-        }
-
-        .notification.show {
-            opacity: 1;
-            transform: translateX(0);
-        }
-
-        .notification.success {
-            background: var(--success);
-        }
-
-        .notification.error {
-            background: var(--danger);
+            opacity: 0.8;
         }
     </style>
 </head>
 <body>
-    <div class="app-container">
-        <div class="main-container">
-            <div class="header">
-                <h1>Barcode Generator</h1>
-                <button class="theme-toggle" id="themeToggle">🌙</button>
-            </div>
-            
-            <div class="controls">
-                <select class="format-selector" id="formatSelector">
-                    <option value="code39">Code 39</option>
-                    <option value="code128">Code 128</option>
-                    <option value="ean13">EAN-13</option>
-                    <option value="ean8">EAN-8</option>
-                    <option value="upc">UPC-A</option>
-                </select>
-            </div>
-            
-            <div class="input-group">
-                <input type="text" id="textInput" placeholder="Enter text or numbers to generate barcode" maxlength="50">
-            </div>
-            
-            <div class="action-buttons">
-                <button class="btn primary" id="saveBtn">💾 Save PNG</button>
-                <button class="btn" id="duplicateBtn">📋 Duplicate</button>
-                <button class="btn" id="favoriteBtn">⭐ Favorite</button>
-            </div>
-            
-            <div class="barcode-container">
-                <div id="barcode" class="placeholder">Enter text above to generate your barcode</div>
-            </div>
-            
-            <div class="instructions">
-                <strong>How to use:</strong> Select format, type your text, and the barcode generates automatically. 
-                <br><strong>Keyboard shortcuts:</strong> Ctrl+S to save, Ctrl+P to print, Ctrl+D to duplicate.
-                <br><strong>Export:</strong> Use the Save PNG button or right-click the barcode.
-            </div>
+    <div class="container">
+        <h1>Barcode Generator</h1>
+        
+        <div class="input-group">
+            <input type="text" id="textInput" placeholder="Enter text or numbers to generate barcode" maxlength="50">
         </div>
-
-        <div class="sidebar">
-            <div class="favorites-section">
-                <div style="display: flex; justify-content: space-between; align-items: center;">
-                    <h3>⭐ Favorites</h3>
-                    <button class="btn" id="clearFavoritesBtn" style="padding: 4px 8px; font-size: 12px;">Clear</button>
-                </div>
-                <div id="favoritesList">
-                    <div class="empty-state">No favorites yet</div>
-                </div>
-            </div>
-
-            <div class="history-section" style="margin-top: 30px;">
-                <div style="display: flex; justify-content: space-between; align-items: center;">
-                    <h3>🕒 Recent</h3>
-                    <button class="btn" id="clearHistoryBtn" style="padding: 4px 8px; font-size: 12px;">Clear</button>
-                </div>
-                <div id="historyList">
-                    <div class="empty-state">No recent barcodes</div>
-                </div>
-            </div>
-
-            <div class="keyboard-shortcuts">
-                <strong>Keyboard Shortcuts:</strong>
-                <div class="shortcut">
-                    <span>Save PNG</span>
-                    <span class="key">Ctrl+S</span>
-                </div>
-                <div class="shortcut">
-                    <span>Print</span>
-                    <span class="key">Ctrl+P</span>
-                </div>
-                <div class="shortcut">
-                    <span>Duplicate</span>
-                    <span class="key">Ctrl+D</span>
-                </div>
-                <div class="shortcut">
-                    <span>Toggle Theme</span>
-                    <span class="key">Ctrl+T</span>
-                </div>
-            </div>
+        
+        <div class="barcode-container">
+            <div id="barcode" class="placeholder">Enter text above to generate your barcode</div>
+        </div>
+        
+        <div class="instructions">
+            <strong>How to use:</strong> Type your text above and the barcode will generate automatically. 
+            <br><strong>To save or print:</strong> Right-click on the barcode and select "Save image as..." or "Print".
         </div>
     </div>
-
-    <div id="notification" class="notification"></div>
 
     <script>
         class BarcodeGenerator {
             constructor() {
                 this.input = document.getElementById('textInput');
                 this.barcodeDiv = document.getElementById('barcode');
-                this.formatSelector = document.getElementById('formatSelector');
-                this.saveBtn = document.getElementById('saveBtn');
-                this.duplicateBtn = document.getElementById('duplicateBtn');
-                this.favoriteBtn = document.getElementById('favoriteBtn');
-                this.themeToggle = document.getElementById('themeToggle');
-                this.clearHistoryBtn = document.getElementById('clearHistoryBtn');
-                this.clearFavoritesBtn = document.getElementById('clearFavoritesBtn');
-                
-                this.currentBarcode = null;
-                this.history = this.loadHistory();
-                this.favorites = this.loadFavorites();
-                
                 this.init();
             }
 
             init() {
-                this.setupEventListeners();
-                this.loadTheme();
-                this.renderHistory();
-                this.renderFavorites();
-                
-                // Generate sample barcode on load
-                setTimeout(() => {
-                    this.input.value = '123456789';
-                    this.generateBarcode('123456789', 'code39');
-                }, 500);
-            }
-
-            setupEventListeners() {
                 this.input.addEventListener('input', (e) => {
                     const text = e.target.value.trim();
-                    const format = this.formatSelector.value;
                     if (text) {
-                        this.generateBarcode(text, format);
+                        this.generateBarcode(text);
                     } else {
                         this.showPlaceholder();
                     }
                 });
 
-                this.formatSelector.addEventListener('change', () => {
-                    const text = this.input.value.trim();
-                    const format = this.formatSelector.value;
-                    if (text) {
-                        this.generateBarcode(text, format);
-                    }
-                });
-
-                this.saveBtn.addEventListener('click', () => this.saveAsPNG());
-                this.duplicateBtn.addEventListener('click', () => this.duplicateBarcode());
-                this.favoriteBtn.addEventListener('click', () => this.toggleFavorite());
-                this.themeToggle.addEventListener('click', () => this.toggleTheme());
-                this.clearHistoryBtn.addEventListener('click', () => this.clearHistory());
-                this.clearFavoritesBtn.addEventListener('click', () => this.clearFavorites());
-
-                // Keyboard shortcuts
-                document.addEventListener('keydown', (e) => {
-                    if (e.ctrlKey || e.metaKey) {
-                        switch(e.key) {
-                            case 's':
-                                e.preventDefault();
-                                this.saveAsPNG();
-                                break;
-                            case 'p':
-                                e.preventDefault();
-                                this.printBarcode();
-                                break;
-                            case 'd':
-                                e.preventDefault();
-                                this.duplicateBarcode();
-                                break;
-                            case 't':
-                                e.preventDefault();
-                                this.toggleTheme();
-                                break;
-                        }
-                    }
-                });
+                // Generate sample barcode on load
+                setTimeout(() => {
+                    this.input.value = 'Sample123';
+                    this.generateBarcode('Sample123');
+                }, 500);
             }
 
-            generateBarcode(text, format) {
+            generateBarcode(text) {
                 try {
                     const canvas = document.createElement('canvas');
                     const ctx = canvas.getContext('2d');
                     
-                    let pattern;
-                    let validatedText = text;
-
-                    // Validate and generate pattern based on format
-                    switch(format) {
-                        case 'ean13':
-                            validatedText = this.validateEAN13(text);
-                            pattern = this.textToEAN13(validatedText);
-                            break;
-                        case 'ean8':
-                            validatedText = this.validateEAN8(text);
-                            pattern = this.textToEAN8(validatedText);
-                            break;
-                        case 'upc':
-                            validatedText = this.validateUPC(text);
-                            pattern = this.textToUPC(validatedText);
-                            break;
-                        case 'code128':
-                            pattern = this.textToCode128(text);
-                            break;
-                        default: // code39
-                            pattern = this.textToCode39(text);
-                    }
+                    // Convert text to barcode pattern (Code 39 style)
+                    const pattern = this.textToBarcode(text);
                     
                     // Set canvas dimensions
                     const barWidth = 2;
@@ -598,7 +190,7 @@
                     canvas.width = (pattern.length * barWidth) + (quietZone * 2);
                     canvas.height = barHeight + 40;
                     
-                    // Clear canvas with white background
+                    // Clear canvas
                     ctx.fillStyle = '#ffffff';
                     ctx.fillRect(0, 0, canvas.width, canvas.height);
                     
@@ -614,26 +206,23 @@
                     ctx.fillStyle = '#000000';
                     ctx.font = '12px monospace';
                     ctx.textAlign = 'center';
-                    ctx.fillText(validatedText, canvas.width / 2, canvas.height - 10);
+                    ctx.fillText(text, canvas.width / 2, canvas.height - 10);
                     
                     // Convert to image and display
                     const img = document.createElement('img');
                     img.src = canvas.toDataURL('image/png');
-                    img.alt = `${format.toUpperCase()} Barcode for: ${validatedText}`;
+                    img.alt = `Barcode for: ${text}`;
                     img.id = 'barcode';
                     img.style.cursor = 'context-menu';
+                    img.addEventListener('mouseenter', function() {
+                        this.style.transform = 'scale(1.02)';
+                    });
+                    img.addEventListener('mouseleave', function() {
+                        this.style.transform = 'scale(1)';
+                    });
                     
                     this.barcodeDiv.innerHTML = '';
                     this.barcodeDiv.appendChild(img);
-                    
-                    this.currentBarcode = {
-                        text: validatedText,
-                        format: format,
-                        dataURL: img.src,
-                        timestamp: Date.now()
-                    };
-
-                    this.addToHistory(this.currentBarcode);
                     
                 } catch (error) {
                     console.error('Error generating barcode:', error);
@@ -641,158 +230,8 @@
                 }
             }
 
-            // Barcode format implementations
-            validateEAN13(text) {
-                let digits = text.replace(/\D/g, '');
-                if (digits.length > 12) digits = digits.substring(0, 12);
-                while (digits.length < 12) digits = '0' + digits;
-                
-                // Calculate check digit
-                let sum = 0;
-                for (let i = 0; i < 12; i++) {
-                    sum += parseInt(digits[i]) * (i % 2 === 0 ? 1 : 3);
-                }
-                const checkDigit = (10 - (sum % 10)) % 10;
-                return digits + checkDigit;
-            }
-
-            validateEAN8(text) {
-                let digits = text.replace(/\D/g, '');
-                if (digits.length > 7) digits = digits.substring(0, 7);
-                while (digits.length < 7) digits = '0' + digits;
-                
-                // Calculate check digit
-                let sum = 0;
-                for (let i = 0; i < 7; i++) {
-                    sum += parseInt(digits[i]) * (i % 2 === 0 ? 3 : 1);
-                }
-                const checkDigit = (10 - (sum % 10)) % 10;
-                return digits + checkDigit;
-            }
-
-            validateUPC(text) {
-                let digits = text.replace(/\D/g, '');
-                if (digits.length > 11) digits = digits.substring(0, 11);
-                while (digits.length < 11) digits = '0' + digits;
-                
-                // Calculate check digit
-                let sum = 0;
-                for (let i = 0; i < 11; i++) {
-                    sum += parseInt(digits[i]) * (i % 2 === 0 ? 3 : 1);
-                }
-                const checkDigit = (10 - (sum % 10)) % 10;
-                return digits + checkDigit;
-            }
-
-            textToEAN13(text) {
-                const leftPatterns = ['0001101', '0011001', '0010011', '0111101', '0100011', '0110001', '0101111', '0111011', '0110111', '0001011'];
-                const rightPatterns = ['1110010', '1100110', '1101100', '1000010', '1011100', '1001110', '1010000', '1000100', '1001000', '1110100'];
-                const firstDigitPatterns = ['LLLLLL', 'LLGLGG', 'LLGGLG', 'LLGGGL', 'LGLLGG', 'LGGLLG', 'LGGGLL', 'LGLGLG', 'LGLGGL', 'LGGLGL'];
-                
-                let pattern = '101'; // Start
-                const firstDigit = parseInt(text[0]);
-                const firstPattern = firstDigitPatterns[firstDigit];
-                
-                // Left side
-                for (let i = 1; i <= 6; i++) {
-                    const digit = parseInt(text[i]);
-                    if (firstPattern[i-1] === 'L') {
-                        pattern += leftPatterns[digit];
-                    } else {
-                        pattern += leftPatterns[digit].split('').map(b => b === '0' ? '1' : '0').join('');
-                    }
-                }
-                
-                pattern += '01010'; // Center
-                
-                // Right side
-                for (let i = 7; i <= 12; i++) {
-                    const digit = parseInt(text[i]);
-                    pattern += rightPatterns[digit];
-                }
-                
-                pattern += '101'; // End
-                return pattern;
-            }
-
-            textToEAN8(text) {
-                const leftPatterns = ['0001101', '0011001', '0010011', '0111101', '0100011', '0110001', '0101111', '0111011', '0110111', '0001011'];
-                const rightPatterns = ['1110010', '1100110', '1101100', '1000010', '1011100', '1001110', '1010000', '1000100', '1001000', '1110100'];
-                
-                let pattern = '101'; // Start
-                
-                // Left side (4 digits)
-                for (let i = 0; i < 4; i++) {
-                    const digit = parseInt(text[i]);
-                    pattern += leftPatterns[digit];
-                }
-                
-                pattern += '01010'; // Center
-                
-                // Right side (4 digits)
-                for (let i = 4; i < 8; i++) {
-                    const digit = parseInt(text[i]);
-                    pattern += rightPatterns[digit];
-                }
-                
-                pattern += '101'; // End
-                return pattern;
-            }
-
-            textToUPC(text) {
-                const leftPatterns = ['0001101', '0011001', '0010011', '0111101', '0100011', '0110001', '0101111', '0111011', '0110111', '0001011'];
-                const rightPatterns = ['1110010', '1100110', '1101100', '1000010', '1011100', '1001110', '1010000', '1000100', '1001000', '1110100'];
-                
-                let pattern = '101'; // Start
-                
-                // Left side (6 digits)
-                for (let i = 0; i < 6; i++) {
-                    const digit = parseInt(text[i]);
-                    pattern += leftPatterns[digit];
-                }
-                
-                pattern += '01010'; // Center
-                
-                // Right side (6 digits)
-                for (let i = 6; i < 12; i++) {
-                    const digit = parseInt(text[i]);
-                    pattern += rightPatterns[digit];
-                }
-                
-                pattern += '101'; // End
-                return pattern;
-            }
-
-            textToCode128(text) {
-                // Simplified Code 128 implementation
-                const patterns = {
-                    '0': '11011001100', '1': '11001101100', '2': '11001100110', '3': '10010011000',
-                    '4': '10010001100', '5': '10001001100', '6': '10011001000', '7': '10011000100',
-                    '8': '10001100100', '9': '11001001000', 'A': '11001000100', 'B': '11000100100',
-                    'C': '10110011100', 'D': '10011011100', 'E': '10011001110', 'F': '10111001000',
-                    'G': '10011101000', 'H': '10011100100', 'I': '11001110010', 'J': '11001011100',
-                    'K': '11001001110', 'L': '11011100100', 'M': '11001110100', 'N': '11101101110',
-                    'O': '11101001100', 'P': '11100101100', 'Q': '11100100110', 'R': '11101100100',
-                    'S': '11100110100', 'T': '11100110010', 'U': '11011011000', 'V': '11011000110',
-                    'W': '11000110110', 'X': '10100011000', 'Y': '10001011000', 'Z': '10001000110',
-                    ' ': '10110001000', '-': '10001101000', '.': '10001100010'
-                };
-
-                let barcode = '11010010000'; // Start B
-                
-                for (let char of text.toUpperCase()) {
-                    if (patterns[char]) {
-                        barcode += patterns[char];
-                    } else {
-                        barcode += '10101010101'; // Default pattern
-                    }
-                }
-                
-                barcode += '1100011101011'; // Stop
-                return barcode;
-            }
-
-            textToCode39(text) {
+            textToBarcode(text) {
+                // Simple barcode pattern generator (simplified Code 39)
                 const patterns = {
                     '0': '101001101101', '1': '110100101011', '2': '101100101011',
                     '3': '110110010101', '4': '101001101011', '5': '110100110101',
@@ -807,22 +246,33 @@
                     'U': '110010101011', 'V': '100110101011', 'W': '110011010101',
                     'X': '100101101011', 'Y': '110010110101', 'Z': '100110110101',
                     ' ': '100101011011', '-': '100101001011', '.': '110010101101',
-                    '*': '100101101101'
+                    '*': '100101101101' // Start/stop character
                 };
 
-                let barcode = patterns['*']; // Start
+                let barcode = patterns['*']; // Start character
                 
                 for (let char of text.toUpperCase()) {
                     if (patterns[char]) {
                         barcode += patterns[char];
                     } else {
+                        // Default pattern for unknown characters
                         barcode += '101010101011';
                     }
                 }
                 
-                barcode += patterns['*']; // Stop
+                barcode += patterns['*']; // Stop character
                 return barcode;
             }
 
-            saveAsPNG() {
-                if (!this.currentBar
+            showPlaceholder() {
+                this.barcodeDiv.innerHTML = '<div class="placeholder">Enter text above to generate your barcode</div>';
+            }
+        }
+
+        // Initialize the barcode generator when the page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            new BarcodeGenerator();
+        });
+    </script>
+</body>
+</html>
