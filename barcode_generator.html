@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barcode Generator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: #ffffff;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+        }
+
+        h1 {
+            color: #1f2937;
+            margin-bottom: 30px;
+            font-weight: 600;
+            font-size: 2.2rem;
+        }
+
+        .input-group {
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 16px 20px;
+            border: 2px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: #f9fafb;
+            outline: none;
+        }
+
+        input[type="text"]:focus {
+            border-color: #374151;
+            box-shadow: 0 0 0 3px rgba(55, 65, 81, 0.1);
+            background: #ffffff;
+        }
+
+        input[type="text"]::placeholder {
+            color: #9ca3af;
+        }
+
+        .barcode-container {
+            background: #ffffff;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 30px;
+            margin: 30px 0;
+            min-height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #barcode {
+            max-width: 100%;
+            height: auto;
+            cursor: context-menu;
+            transition: transform 0.2s ease;
+        }
+
+        #barcode:hover {
+            transform: scale(1.02);
+        }
+
+        .placeholder {
+            color: #6b7280;
+            font-style: italic;
+            font-size: 14px;
+        }
+
+        .instructions {
+            background: #f3f4f6;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 20px;
+            color: #4b5563;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .instructions strong {
+            color: #1f2937;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 30px 20px;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            input[type="text"] {
+                padding: 14px 16px;
+            }
+        }
+
+        .loading {
+            color: #374151;
+            font-size: 14px;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Barcode Generator</h1>
+        
+        <div class="input-group">
+            <input type="text" id="textInput" placeholder="Enter text or numbers to generate barcode" maxlength="50">
+        </div>
+        
+        <div class="barcode-container">
+            <div id="barcode" class="placeholder">Enter text above to generate your barcode</div>
+        </div>
+        
+        <div class="instructions">
+            <strong>How to use:</strong> Type your text above and the barcode will generate automatically. 
+            <br><strong>To save or print:</strong> Right-click on the barcode and select "Save image as..." or "Print".
+        </div>
+    </div>
+
+    <script>
+        class BarcodeGenerator {
+            constructor() {
+                this.input = document.getElementById('textInput');
+                this.barcodeDiv = document.getElementById('barcode');
+                this.init();
+            }
+
+            init() {
+                this.input.addEventListener('input', (e) => {
+                    const text = e.target.value.trim();
+                    if (text) {
+                        this.generateBarcode(text);
+                    } else {
+                        this.showPlaceholder();
+                    }
+                });
+
+                // Generate sample barcode on load
+                setTimeout(() => {
+                    this.input.value = 'Sample123';
+                    this.generateBarcode('Sample123');
+                }, 500);
+            }
+
+            generateBarcode(text) {
+                try {
+                    const canvas = document.createElement('canvas');
+                    const ctx = canvas.getContext('2d');
+                    
+                    // Convert text to barcode pattern (Code 39 style)
+                    const pattern = this.textToBarcode(text);
+                    
+                    // Set canvas dimensions
+                    const barWidth = 2;
+                    const barHeight = 60;
+                    const quietZone = 20;
+                    canvas.width = (pattern.length * barWidth) + (quietZone * 2);
+                    canvas.height = barHeight + 40;
+                    
+                    // Clear canvas
+                    ctx.fillStyle = '#ffffff';
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+                    
+                    // Draw barcode
+                    ctx.fillStyle = '#000000';
+                    for (let i = 0; i < pattern.length; i++) {
+                        if (pattern[i] === '1') {
+                            ctx.fillRect(quietZone + (i * barWidth), 10, barWidth, barHeight);
+                        }
+                    }
+                    
+                    // Add text below barcode
+                    ctx.fillStyle = '#000000';
+                    ctx.font = '12px monospace';
+                    ctx.textAlign = 'center';
+                    ctx.fillText(text, canvas.width / 2, canvas.height - 10);
+                    
+                    // Convert to image and display
+                    const img = document.createElement('img');
+                    img.src = canvas.toDataURL('image/png');
+                    img.alt = `Barcode for: ${text}`;
+                    img.id = 'barcode';
+                    img.style.cursor = 'context-menu';
+                    img.addEventListener('mouseenter', function() {
+                        this.style.transform = 'scale(1.02)';
+                    });
+                    img.addEventListener('mouseleave', function() {
+                        this.style.transform = 'scale(1)';
+                    });
+                    
+                    this.barcodeDiv.innerHTML = '';
+                    this.barcodeDiv.appendChild(img);
+                    
+                } catch (error) {
+                    console.error('Error generating barcode:', error);
+                    this.barcodeDiv.innerHTML = '<div class="placeholder">Error generating barcode</div>';
+                }
+            }
+
+            textToBarcode(text) {
+                // Simple barcode pattern generator (simplified Code 39)
+                const patterns = {
+                    '0': '101001101101', '1': '110100101011', '2': '101100101011',
+                    '3': '110110010101', '4': '101001101011', '5': '110100110101',
+                    '6': '101100110101', '7': '101001011011', '8': '110100101101',
+                    '9': '101100101101', 'A': '110101001011', 'B': '101101001011',
+                    'C': '110110100101', 'D': '101011001011', 'E': '110101100101',
+                    'F': '101101100101', 'G': '101010011011', 'H': '110101001101',
+                    'I': '101101001101', 'J': '101011001101', 'K': '110101010011',
+                    'L': '101101010011', 'M': '110110101001', 'N': '101011010011',
+                    'O': '110101101001', 'P': '101101101001', 'Q': '101010110011',
+                    'R': '110101011001', 'S': '101101011001', 'T': '101011011001',
+                    'U': '110010101011', 'V': '100110101011', 'W': '110011010101',
+                    'X': '100101101011', 'Y': '110010110101', 'Z': '100110110101',
+                    ' ': '100101011011', '-': '100101001011', '.': '110010101101',
+                    '*': '100101101101' // Start/stop character
+                };
+
+                let barcode = patterns['*']; // Start character
+                
+                for (let char of text.toUpperCase()) {
+                    if (patterns[char]) {
+                        barcode += patterns[char];
+                    } else {
+                        // Default pattern for unknown characters
+                        barcode += '101010101011';
+                    }
+                }
+                
+                barcode += patterns['*']; // Stop character
+                return barcode;
+            }
+
+            showPlaceholder() {
+                this.barcodeDiv.innerHTML = '<div class="placeholder">Enter text above to generate your barcode</div>';
+            }
+        }
+
+        // Initialize the barcode generator when the page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            new BarcodeGenerator();
+        });
+    </script>
+</body>
+</html>
