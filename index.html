@@ -12,8 +12,9 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: #ffffff;
+            color: #1f2937;
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -21,51 +22,126 @@
             padding: 20px;
         }
 
-        .container {
+        body[data-theme="dark"] {
+            background: #111827;
+            color: #f9fafb;
+        }
+
+        .app {
+            display: flex;
+            gap: 20px;
+            max-width: 1000px;
+            width: 100%;
+        }
+
+        .main {
             background: #ffffff;
             border: 2px solid #e5e7eb;
             border-radius: 12px;
             padding: 40px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            flex: 1;
             max-width: 500px;
-            width: 100%;
             text-align: center;
         }
 
-        h1 {
-            color: #1f2937;
+        body[data-theme="dark"] .main {
+            background: #111827;
+            border-color: #374151;
+        }
+
+        .sidebar {
+            width: 250px;
+            background: #f9fafb;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        body[data-theme="dark"] .sidebar {
+            background: #1f2937;
+            border-color: #374151;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             margin-bottom: 30px;
+        }
+
+        h1 {
             font-weight: 600;
             font-size: 2.2rem;
         }
 
-        .input-group {
-            margin-bottom: 30px;
-            position: relative;
+        .theme-btn {
+            background: #f9fafb;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 8px 12px;
+            cursor: pointer;
+            font-size: 16px;
         }
 
-        input[type="text"] {
+        body[data-theme="dark"] .theme-btn {
+            background: #1f2937;
+            border-color: #374151;
+            color: #f9fafb;
+        }
+
+        input {
             width: 100%;
             padding: 16px 20px;
             border: 2px solid #d1d5db;
             border-radius: 8px;
             font-size: 16px;
-            transition: all 0.3s ease;
             background: #f9fafb;
             outline: none;
+            margin-bottom: 20px;
         }
 
-        input[type="text"]:focus {
+        body[data-theme="dark"] input {
+            background: #1f2937;
+            border-color: #4b5563;
+            color: #f9fafb;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 12px 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            background: #f9fafb;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        body[data-theme="dark"] .btn {
+            background: #1f2937;
             border-color: #374151;
-            box-shadow: 0 0 0 3px rgba(55, 65, 81, 0.1);
-            background: #ffffff;
+            color: #f9fafb;
         }
 
-        input[type="text"]::placeholder {
-            color: #9ca3af;
+        .btn.primary {
+            background: #374151;
+            color: white;
+            border-color: #374151;
         }
 
-        .barcode-container {
+        body[data-theme="dark"] .btn.primary {
+            background: #60a5fa;
+            border-color: #60a5fa;
+        }
+
+        .barcode-box {
             background: #ffffff;
             border: 2px solid #e5e7eb;
             border-radius: 8px;
@@ -75,19 +151,17 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            position: relative;
-            overflow: hidden;
+        }
+
+        body[data-theme="dark"] .barcode-box {
+            background: #111827;
+            border-color: #374151;
         }
 
         #barcode {
             max-width: 100%;
             height: auto;
             cursor: context-menu;
-            transition: transform 0.2s ease;
-        }
-
-        #barcode:hover {
-            transform: scale(1.02);
         }
 
         .placeholder {
@@ -96,182 +170,643 @@
             font-size: 14px;
         }
 
-        .instructions {
+        .info {
             background: #f3f4f6;
             border: 1px solid #e5e7eb;
             border-radius: 8px;
             padding: 15px;
             margin-top: 20px;
-            color: #4b5563;
             font-size: 14px;
             line-height: 1.5;
         }
 
-        .instructions strong {
-            color: #1f2937;
+        body[data-theme="dark"] .info {
+            background: #374151;
+            border-color: #4b5563;
         }
 
-        @media (max-width: 480px) {
-            .container {
-                padding: 30px 20px;
-            }
-            
-            h1 {
-                font-size: 1.8rem;
-            }
-            
-            input[type="text"] {
-                padding: 14px 16px;
-            }
+        .section {
+            margin-bottom: 20px;
         }
 
-        .loading {
-            color: #374151;
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .section h3 {
             font-size: 14px;
-            opacity: 0.8;
+        }
+
+        .clear-btn {
+            background: none;
+            border: 1px solid #e5e7eb;
+            border-radius: 4px;
+            padding: 4px 8px;
+            font-size: 11px;
+            cursor: pointer;
+        }
+
+        body[data-theme="dark"] .clear-btn {
+            border-color: #4b5563;
+            color: #f9fafb;
+        }
+
+        .item {
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            padding: 8px;
+            margin-bottom: 4px;
+            font-size: 12px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        body[data-theme="dark"] .item {
+            background: #111827;
+            border-color: #374151;
+        }
+
+        .remove-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 2px;
+        }
+
+        .empty {
+            color: #6b7280;
+            font-style: italic;
+            text-align: center;
+            padding: 15px;
+            font-size: 12px;
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 12px 16px;
+            border-radius: 6px;
+            color: white;
+            font-size: 14px;
+            z-index: 1000;
+            opacity: 0;
+            transform: translateX(100%);
+            transition: all 0.3s ease;
+        }
+
+        .notification.show {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .notification.success {
+            background: #10b981;
+        }
+
+        .notification.error {
+            background: #ef4444;
+        }
+
+        @media (max-width: 768px) {
+            .app {
+                flex-direction: column;
+            }
+            .sidebar {
+                width: 100%;
+                order: -1;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Barcode Generator</h1>
-        
-        <div class="input-group">
-            <input type="text" id="textInput" placeholder="Enter text or numbers to generate barcode" maxlength="50">
+    <div class="app">
+        <div class="main">
+            <div class="header">
+                <h1>Barcode Generator</h1>
+                <button class="theme-btn" onclick="toggleTheme()">🌙</button>
+            </div>
+            
+            <input type="text" id="textInput" placeholder="Enter text or numbers" maxlength="50">
+
+            <div class="buttons">
+                <button class="btn primary" onclick="saveBarcode()">💾 Save PNG</button>
+                <button class="btn" onclick="toggleFavorite()">⭐ Favorite</button>
+            </div>
+            
+            <div class="barcode-box">
+                <div id="barcode" class="placeholder">Enter text above to generate your barcode</div>
+            </div>
+            
+            <div class="info">
+                <strong>Shortcuts:</strong> Ctrl+S save, Ctrl+P print, Ctrl+D duplicate, Ctrl+T theme
+            </div>
         </div>
-        
-        <div class="barcode-container">
-            <div id="barcode" class="placeholder">Enter text above to generate your barcode</div>
-        </div>
-        
-        <div class="instructions">
-            <strong>How to use:</strong> Type your text above and the barcode will generate automatically. 
-            <br><strong>To save or print:</strong> Right-click on the barcode and select "Save image as..." or "Print".
+
+        <div class="sidebar">
+            <div class="section">
+                <div class="section-header">
+                    <h3>⭐ Favorites</h3>
+                    <button class="clear-btn" onclick="clearFavorites()">Clear</button>
+                </div>
+                <div id="favorites">
+                    <div class="empty">No favorites yet</div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-header">
+                    <h3>🕒 Recent</h3>
+                    <button class="clear-btn" onclick="clearHistory()">Clear</button>
+                </div>
+                <div id="history">
+                    <div class="empty">No recent barcodes</div>
+                </div>
+            </div>
         </div>
     </div>
 
+    <div id="notification" class="notification"></div>
+
     <script>
-        class BarcodeGenerator {
-            constructor() {
-                this.input = document.getElementById('textInput');
-                this.barcodeDiv = document.getElementById('barcode');
-                this.init();
-            }
+        var currentBarcode = null;
+        var history = [];
+        var favorites = [];
 
-            init() {
-                this.input.addEventListener('input', (e) => {
-                    const text = e.target.value.trim();
-                    if (text) {
-                        this.generateBarcode(text);
+        function loadData() {
+            try {
+                var savedHistory = localStorage.getItem('history');
+                if (savedHistory) {
+                    var parsed = JSON.parse(savedHistory);
+                    if (Array.isArray(parsed)) {
+                        history = parsed;
                     } else {
-                        this.showPlaceholder();
+                        history = [];
                     }
-                });
-
-                // Generate sample barcode on load
-                setTimeout(() => {
-                    this.input.value = 'Sample123';
-                    this.generateBarcode('Sample123');
-                }, 500);
-            }
-
-            generateBarcode(text) {
-                try {
-                    const canvas = document.createElement('canvas');
-                    const ctx = canvas.getContext('2d');
-                    
-                    // Convert text to barcode pattern (Code 39 style)
-                    const pattern = this.textToBarcode(text);
-                    
-                    // Set canvas dimensions
-                    const barWidth = 2;
-                    const barHeight = 60;
-                    const quietZone = 20;
-                    canvas.width = (pattern.length * barWidth) + (quietZone * 2);
-                    canvas.height = barHeight + 40;
-                    
-                    // Clear canvas
-                    ctx.fillStyle = '#ffffff';
-                    ctx.fillRect(0, 0, canvas.width, canvas.height);
-                    
-                    // Draw barcode
-                    ctx.fillStyle = '#000000';
-                    for (let i = 0; i < pattern.length; i++) {
-                        if (pattern[i] === '1') {
-                            ctx.fillRect(quietZone + (i * barWidth), 10, barWidth, barHeight);
-                        }
-                    }
-                    
-                    // Add text below barcode
-                    ctx.fillStyle = '#000000';
-                    ctx.font = '12px monospace';
-                    ctx.textAlign = 'center';
-                    ctx.fillText(text, canvas.width / 2, canvas.height - 10);
-                    
-                    // Convert to image and display
-                    const img = document.createElement('img');
-                    img.src = canvas.toDataURL('image/png');
-                    img.alt = `Barcode for: ${text}`;
-                    img.id = 'barcode';
-                    img.style.cursor = 'context-menu';
-                    img.addEventListener('mouseenter', function() {
-                        this.style.transform = 'scale(1.02)';
-                    });
-                    img.addEventListener('mouseleave', function() {
-                        this.style.transform = 'scale(1)';
-                    });
-                    
-                    this.barcodeDiv.innerHTML = '';
-                    this.barcodeDiv.appendChild(img);
-                    
-                } catch (error) {
-                    console.error('Error generating barcode:', error);
-                    this.barcodeDiv.innerHTML = '<div class="placeholder">Error generating barcode</div>';
-                }
-            }
-
-            textToBarcode(text) {
-                // Simple barcode pattern generator (simplified Code 39)
-                const patterns = {
-                    '0': '101001101101', '1': '110100101011', '2': '101100101011',
-                    '3': '110110010101', '4': '101001101011', '5': '110100110101',
-                    '6': '101100110101', '7': '101001011011', '8': '110100101101',
-                    '9': '101100101101', 'A': '110101001011', 'B': '101101001011',
-                    'C': '110110100101', 'D': '101011001011', 'E': '110101100101',
-                    'F': '101101100101', 'G': '101010011011', 'H': '110101001101',
-                    'I': '101101001101', 'J': '101011001101', 'K': '110101010011',
-                    'L': '101101010011', 'M': '110110101001', 'N': '101011010011',
-                    'O': '110101101001', 'P': '101101101001', 'Q': '101010110011',
-                    'R': '110101011001', 'S': '101101011001', 'T': '101011011001',
-                    'U': '110010101011', 'V': '100110101011', 'W': '110011010101',
-                    'X': '100101101011', 'Y': '110010110101', 'Z': '100110110101',
-                    ' ': '100101011011', '-': '100101001011', '.': '110010101101',
-                    '*': '100101101101' // Start/stop character
-                };
-
-                let barcode = patterns['*']; // Start character
-                
-                for (let char of text.toUpperCase()) {
-                    if (patterns[char]) {
-                        barcode += patterns[char];
-                    } else {
-                        // Default pattern for unknown characters
-                        barcode += '101010101011';
-                    }
+                } else {
+                    history = [];
                 }
                 
-                barcode += patterns['*']; // Stop character
-                return barcode;
-            }
-
-            showPlaceholder() {
-                this.barcodeDiv.innerHTML = '<div class="placeholder">Enter text above to generate your barcode</div>';
+                var savedFavorites = localStorage.getItem('favorites');
+                if (savedFavorites) {
+                    var parsed = JSON.parse(savedFavorites);
+                    if (Array.isArray(parsed)) {
+                        favorites = parsed;
+                    } else {
+                        favorites = [];
+                    }
+                } else {
+                    favorites = [];
+                }
+                
+                var savedTheme = localStorage.getItem('theme');
+                if (savedTheme && savedTheme === 'dark') {
+                    document.body.setAttribute('data-theme', 'dark');
+                    document.querySelector('.theme-btn').textContent = '☀️';
+                }
+            } catch (e) {
+                // Storage not available in sandboxed environment
+                history = [];
+                favorites = [];
             }
         }
 
-        // Initialize the barcode generator when the page loads
-        document.addEventListener('DOMContentLoaded', () => {
-            new BarcodeGenerator();
+        function saveData() {
+            try {
+                localStorage.setItem('history', JSON.stringify(history));
+                localStorage.setItem('favorites', JSON.stringify(favorites));
+            } catch (e) {
+                // Storage not available in sandboxed environment
+            }
+        }
+
+        function textToBarcode(text) {
+            if (!text || text.length === 0) {
+                return '';
+            }
+            
+            var patterns = {
+                '0': '101001101101',
+                '1': '110100101011',
+                '2': '101100101011',
+                '3': '110110010101',
+                '4': '101001101011',
+                '5': '110100110101',
+                '6': '101100110101',
+                '7': '101001011011',
+                '8': '110100101101',
+                '9': '101100101101',
+                'A': '110101001011',
+                'B': '101101001011',
+                'C': '110110100101',
+                'D': '101011001011',
+                'E': '110101100101',
+                'F': '101101100101',
+                'G': '101010011011',
+                'H': '110101001101',
+                'I': '101101001101',
+                'J': '101011001101',
+                'K': '110101010011',
+                'L': '101101010011',
+                'M': '110110101001',
+                'N': '101011010011',
+                'O': '110101101001',
+                'P': '101101101001',
+                'Q': '101010110011',
+                'R': '110101011001',
+                'S': '101101011001',
+                'T': '101011011001',
+                'U': '110010101011',
+                'V': '100110101011',
+                'W': '110011010101',
+                'X': '100101101011',
+                'Y': '110010110101',
+                'Z': '100110110101',
+                ' ': '100101011011',
+                '-': '100101001011',
+                '.': '110010101101',
+                '*': '100101101101'
+            };
+
+            // Start with start character
+            var barcode = patterns['*'] || '100101101101';
+            
+            // Add each character
+            for (var i = 0; i < text.length; i++) {
+                var char = text.toUpperCase().charAt(i);
+                if (patterns[char]) {
+                    barcode += patterns[char];
+                } else {
+                    // Default pattern for unknown characters
+                    barcode += '101010101011';
+                }
+            }
+            
+            // End with stop character
+            barcode += patterns['*'] || '100101101101';
+            
+            return barcode;
+        }
+
+        function generateBarcode(text) {
+            if (!text || text.length === 0) {
+                var container = document.getElementById('barcode').parentNode;
+                container.innerHTML = '<div id="barcode" class="placeholder">Enter text above to generate your barcode</div>';
+                currentBarcode = null;
+                return;
+            }
+            
+            try {
+                var canvas = document.createElement('canvas');
+                var ctx = canvas.getContext('2d');
+                
+                if (!ctx) {
+                    throw new Error('Canvas not supported');
+                }
+                
+                var pattern = textToBarcode(text);
+                
+                if (!pattern || pattern.length === 0) {
+                    throw new Error('Invalid pattern generated');
+                }
+                
+                var barWidth = 2;
+                var barHeight = 60;
+                var quietZone = 20;
+                canvas.width = (pattern.length * barWidth) + (quietZone * 2);
+                canvas.height = barHeight + 40;
+                
+                // Clear canvas with white background
+                ctx.fillStyle = '#ffffff';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                
+                // Draw barcode bars
+                ctx.fillStyle = '#000000';
+                for (var i = 0; i < pattern.length; i++) {
+                    if (pattern.charAt(i) === '1') {
+                        ctx.fillRect(quietZone + (i * barWidth), 10, barWidth, barHeight);
+                    }
+                }
+                
+                // Add text below barcode
+                ctx.fillStyle = '#000000';
+                ctx.font = '12px monospace';
+                ctx.textAlign = 'center';
+                ctx.fillText(text, canvas.width / 2, canvas.height - 10);
+                
+                // Create image element
+                var img = document.createElement('img');
+                img.src = canvas.toDataURL('image/png');
+                img.alt = 'Barcode for: ' + text;
+                img.id = 'barcode';
+                img.style.cursor = 'context-menu';
+                img.style.maxWidth = '100%';
+                img.style.height = 'auto';
+                
+                // Replace content
+                var container = document.getElementById('barcode').parentNode;
+                container.innerHTML = '';
+                container.appendChild(img);
+                
+                // Store current barcode
+                currentBarcode = {
+                    text: text,
+                    dataURL: img.src
+                };
+                
+                // Add to history (with safety check)
+                try {
+                    addToHistory(currentBarcode);
+                } catch (historyError) {
+                    console.log('History update failed:', historyError);
+                    // Continue without history update
+                }
+                
+            } catch (error) {
+                console.error('Barcode generation error:', error);
+                var container = document.getElementById('barcode').parentNode;
+                container.innerHTML = '<div id="barcode" class="placeholder">Error: Could not generate barcode for "' + text + '"</div>';
+                currentBarcode = null;
+            }
+        }
+
+        function saveBarcode() {
+            if (!currentBarcode || !currentBarcode.text || !currentBarcode.dataURL) {
+                showNotification('No barcode to save', 'error');
+                return;
+            }
+            var link = document.createElement('a');
+            link.download = 'barcode_' + currentBarcode.text + '.png';
+            link.href = currentBarcode.dataURL;
+            link.click();
+            showNotification('Barcode saved!', 'success');
+        }
+
+        function toggleTheme() {
+            var current = document.body.getAttribute('data-theme');
+            if (current === 'dark') {
+                document.body.removeAttribute('data-theme');
+                document.querySelector('.theme-btn').textContent = '🌙';
+                try {
+                    localStorage.setItem('theme', 'light');
+                } catch (e) {
+                    // Storage not available
+                }
+            } else {
+                document.body.setAttribute('data-theme', 'dark');
+                document.querySelector('.theme-btn').textContent = '☀️';
+                try {
+                    localStorage.setItem('theme', 'dark');
+                } catch (e) {
+                    // Storage not available
+                }
+            }
+        }
+
+        function toggleFavorite() {
+            if (!currentBarcode || !currentBarcode.text) {
+                showNotification('No barcode to favorite', 'error');
+                return;
+            }
+            
+            // Force reset favorites to empty array if it's not an array
+            if (!favorites || !Array.isArray(favorites)) {
+                favorites = [];
+            }
+            
+            var exists = -1;
+            for (var i = 0; i < favorites.length; i++) {
+                if (favorites[i] && favorites[i].text === currentBarcode.text) {
+                    exists = i;
+                    break;
+                }
+            }
+            
+            if (exists >= 0) {
+                // Create new array without the item
+                var newFavorites = [];
+                for (var i = 0; i < favorites.length; i++) {
+                    if (i !== exists) {
+                        newFavorites.push(favorites[i]);
+                    }
+                }
+                favorites = newFavorites;
+                showNotification('Removed from favorites', 'success');
+            } else {
+                // Create new array with item at beginning
+                var newFavorites = [currentBarcode];
+                for (var i = 0; i < favorites.length && newFavorites.length < 10; i++) {
+                    newFavorites.push(favorites[i]);
+                }
+                favorites = newFavorites;
+                showNotification('Added to favorites', 'success');
+            }
+            
+            saveData();
+            renderFavorites();
+        }
+
+        function addToHistory(barcode) {
+            if (!barcode || !barcode.text) {
+                return;
+            }
+            
+            // Force reset history to empty array if it's not an array
+            if (!history || !Array.isArray(history)) {
+                history = [];
+            }
+            
+            // Remove duplicates safely
+            var newHistory = [];
+            for (var i = 0; i < history.length; i++) {
+                if (history[i] && history[i].text && history[i].text !== barcode.text) {
+                    newHistory.push(history[i]);
+                }
+            }
+            
+            // Add new item at beginning
+            newHistory.unshift(barcode);
+            
+            // Keep only last 10 items
+            if (newHistory.length > 10) {
+                newHistory = newHistory.slice(0, 10);
+            }
+            
+            // Update global history
+            history = newHistory;
+            
+            saveData();
+            renderHistory();
+        }
+
+        function renderHistory() {
+            var div = document.getElementById('history');
+            if (!history || history.length === 0) {
+                div.innerHTML = '<div class="empty">No recent barcodes</div>';
+                return;
+            }
+            var html = '';
+            for (var i = 0; i < history.length; i++) {
+                if (history[i] && history[i].text) {
+                    html += '<div class="item" onclick="loadBarcode(\'' + history[i].text + '\')">';
+                    html += '<span>' + history[i].text + '</span>';
+                    html += '<button class="remove-btn" onclick="event.stopPropagation();removeHistory(\'' + history[i].text + '\')">🗑️</button>';
+                    html += '</div>';
+                }
+            }
+            if (html === '') {
+                div.innerHTML = '<div class="empty">No recent barcodes</div>';
+            } else {
+                div.innerHTML = html;
+            }
+        }
+
+        function renderFavorites() {
+            var div = document.getElementById('favorites');
+            if (!favorites || favorites.length === 0) {
+                div.innerHTML = '<div class="empty">No favorites yet</div>';
+                return;
+            }
+            var html = '';
+            for (var i = 0; i < favorites.length; i++) {
+                if (favorites[i] && favorites[i].text) {
+                    html += '<div class="item" onclick="loadBarcode(\'' + favorites[i].text + '\')">';
+                    html += '<span>' + favorites[i].text + '</span>';
+                    html += '<button class="remove-btn" onclick="event.stopPropagation();removeFavorite(\'' + favorites[i].text + '\')">⭐</button>';
+                    html += '</div>';
+                }
+            }
+            if (html === '') {
+                div.innerHTML = '<div class="empty">No favorites yet</div>';
+            } else {
+                div.innerHTML = html;
+            }
+        }
+
+        function loadBarcode(text) {
+            if (!text) return;
+            document.getElementById('textInput').value = text;
+            generateBarcode(text);
+            showNotification('Loaded!', 'success');
+        }
+
+        function removeHistory(text) {
+            if (!history || !Array.isArray(history)) {
+                history = [];
+                renderHistory();
+                return;
+            }
+            
+            var newHistory = [];
+            for (var i = 0; i < history.length; i++) {
+                if (history[i] && history[i].text !== text) {
+                    newHistory.push(history[i]);
+                }
+            }
+            history = newHistory;
+            saveData();
+            renderHistory();
+        }
+
+        function removeFavorite(text) {
+            if (!favorites || !Array.isArray(favorites)) {
+                favorites = [];
+                renderFavorites();
+                return;
+            }
+            
+            var newFavorites = [];
+            for (var i = 0; i < favorites.length; i++) {
+                if (favorites[i] && favorites[i].text !== text) {
+                    newFavorites.push(favorites[i]);
+                }
+            }
+            favorites = newFavorites;
+            saveData();
+            renderFavorites();
+        }
+
+        function clearHistory() {
+            history = [];
+            saveData();
+            renderHistory();
+            showNotification('History cleared', 'success');
+        }
+
+        function clearFavorites() {
+            favorites = [];
+            saveData();
+            renderFavorites();
+            showNotification('Favorites cleared', 'success');
+        }
+
+        function showNotification(message, type) {
+            var n = document.getElementById('notification');
+            n.textContent = message;
+            n.className = 'notification ' + type + ' show';
+            setTimeout(function() {
+                n.className = 'notification ' + type;
+            }, 3000);
+        }
+
+        function printBarcode() {
+            if (!currentBarcode || !currentBarcode.dataURL) return;
+            var w = window.open('', '_blank');
+            w.document.write('<img src="' + currentBarcode.dataURL + '"><scr' + 'ipt>print();close();</scr' + 'ipt>');
+        }
+
+        function duplicateBarcode() {
+            if (!currentBarcode || !currentBarcode.text) return;
+            document.getElementById('textInput').value = currentBarcode.text;
+            document.getElementById('textInput').focus();
+            showNotification('Duplicated!', 'success');
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey) {
+                if (e.key === 's') {
+                    e.preventDefault();
+                    saveBarcode();
+                } else if (e.key === 'p') {
+                    e.preventDefault();
+                    printBarcode();
+                } else if (e.key === 'd') {
+                    e.preventDefault();
+                    duplicateBarcode();
+                } else if (e.key === 't') {
+                    e.preventDefault();
+                    toggleTheme();
+                }
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            loadData();
+            renderHistory();
+            renderFavorites();
+            
+            var input = document.getElementById('textInput');
+            input.addEventListener('input', function(e) {
+                var text = e.target.value.trim();
+                if (text) {
+                    generateBarcode(text);
+                } else {
+                    var container = document.getElementById('barcode').parentNode;
+                    container.innerHTML = '<div id="barcode" class="placeholder">Enter text above to generate your barcode</div>';
+                    currentBarcode = null;
+                }
+            });
+
+            setTimeout(function() {
+                input.value = 'Sample123';
+                generateBarcode('Sample123');
+            }, 500);
         });
     </script>
 </body>
